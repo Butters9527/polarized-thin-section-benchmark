@@ -1,0 +1,22 @@
+backbone: vit_b_16  (参数量 86.4M)
+test 集：33 张图像
+checkpoint 训练时最佳 val_acc = 84.38%，Epoch 9
+
+test_acc = 0.7273  (24/33)
+
+=== 混淆矩阵 ===
+     火成岩  变质岩  沉积岩
+火成岩   12    1    0
+变质岩    7    5    0
+沉积岩    0    1    7
+
+=== 分类报告 ===
+              precision    recall  f1-score   support
+
+         火成岩       0.63      0.92      0.75        13
+         变质岩       0.71      0.42      0.53        12
+         沉积岩       1.00      0.88      0.93         8
+
+    accuracy                           0.73        33
+   macro avg       0.78      0.74      0.74        33
+weighted avg       0.75      0.73      0.71        33

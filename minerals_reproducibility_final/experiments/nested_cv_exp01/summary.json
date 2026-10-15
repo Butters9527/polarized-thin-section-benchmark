@@ -1,0 +1,75 @@
+{
+  "oa": {
+    "mean": 84.4375,
+    "std": 2.691131267701373
+  },
+  "macro_f1": {
+    "mean": 0.8460097661744956,
+    "std": 0.02297164974009999
+  },
+  "rec_igneous": {
+    "mean": 0.9333333333333333,
+    "std": 0.042491829279939886
+  },
+  "rec_metamorphic": {
+    "mean": 0.7583333333333333,
+    "std": 0.07168604389202189
+  },
+  "rec_sedimentary": {
+    "mean": 0.8397058823529411,
+    "std": 0.0630211833447533
+  },
+  "fold_results": [
+    {
+      "oa": 80.0,
+      "macro_f1": 0.8116030238076336,
+      "rec_igneous": 0.875,
+      "rec_metamorphic": 0.7083333333333334,
+      "rec_sedimentary": 0.8235294117647058,
+      "n_samples": 65,
+      "best_inner_val_acc": 92.3076923076923,
+      "fold": 0
+    },
+    {
+      "oa": 87.5,
+      "macro_f1": 0.8782622327966211,
+      "rec_igneous": 0.9583333333333334,
+      "rec_metamorphic": 0.7916666666666666,
+      "rec_sedimentary": 0.875,
+      "n_samples": 64,
+      "best_inner_val_acc": 84.61538461538461,
+      "fold": 1
+    },
+    {
+      "oa": 85.9375,
+      "macro_f1": 0.8549359562112752,
+      "rec_igneous": 1.0,
+      "rec_metamorphic": 0.75,
+      "rec_sedimentary": 0.8125,
+      "n_samples": 64,
+      "best_inner_val_acc": 84.61538461538461,
+      "fold": 2
+    },
+    {
+      "oa": 85.9375,
+      "macro_f1": 0.8551104349785891,
+      "rec_igneous": 0.9166666666666666,
+      "rec_metamorphic": 0.875,
+      "rec_sedimentary": 0.75,
+      "n_samples": 64,
+      "best_inner_val_acc": 92.3076923076923,
+      "fold": 3
+    },
+    {
+      "oa": 82.8125,
+      "macro_f1": 0.8301371830783596,
+      "rec_igneous": 0.9166666666666666,
+      "rec_metamorphic": 0.6666666666666666,
+      "rec_sedimentary": 0.9375,
+      "n_samples": 64,
+      "best_inner_val_acc": 89.74358974358975,
+      "fold": 4
+    }
+  ],
+  "note": "Nested CV: early stopping uses an inner held-out split (15% of the outer-train slides) that is disjoint from the outer-validation fold reported here. Compare against experiments/kfold_{mode}/summary.json (non-nested) to quantify the optimism bias the reviewers flagged."
+}

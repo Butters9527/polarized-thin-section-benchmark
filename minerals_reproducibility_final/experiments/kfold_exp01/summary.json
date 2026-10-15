@@ -1,0 +1,64 @@
+{
+  "oa": {
+    "mean": 89.40865384615384,
+    "std": 2.685155334724163
+  },
+  "macro_f1": {
+    "mean": 0.8937259529214652,
+    "std": 0.0242909054683633
+  },
+  "rec_igneous": {
+    "mean": 0.9583333333333334,
+    "std": 0.06454972243679026
+  },
+  "rec_metamorphic": {
+    "mean": 0.8166666666666667,
+    "std": 0.033333333333333354
+  },
+  "rec_sedimentary": {
+    "mean": 0.9139705882352942,
+    "std": 0.028911181251966917
+  },
+  "fold_results": [
+    {
+      "oa": 89.23076923076924,
+      "macro_f1": 0.8966750841750842,
+      "rec_igneous": 1.0,
+      "rec_metamorphic": 0.7916666666666666,
+      "rec_sedimentary": 0.8823529411764706,
+      "fold": 0
+    },
+    {
+      "oa": 90.625,
+      "macro_f1": 0.9019964349376114,
+      "rec_igneous": 1.0,
+      "rec_metamorphic": 0.7916666666666666,
+      "rec_sedimentary": 0.9375,
+      "fold": 1
+    },
+    {
+      "oa": 92.1875,
+      "macro_f1": 0.9197860962566845,
+      "rec_igneous": 1.0,
+      "rec_metamorphic": 0.8333333333333334,
+      "rec_sedimentary": 0.9375,
+      "fold": 2
+    },
+    {
+      "oa": 90.625,
+      "macro_f1": 0.9024641771602258,
+      "rec_igneous": 0.9583333333333334,
+      "rec_metamorphic": 0.875,
+      "rec_sedimentary": 0.875,
+      "fold": 3
+    },
+    {
+      "oa": 84.375,
+      "macro_f1": 0.84770797207772,
+      "rec_igneous": 0.8333333333333334,
+      "rec_metamorphic": 0.7916666666666666,
+      "rec_sedimentary": 0.9375,
+      "fold": 4
+    }
+  ]
+}

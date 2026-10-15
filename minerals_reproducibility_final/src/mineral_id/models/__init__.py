@@ -1,0 +1,1 @@
+from mineral_id.models.temporal_attention import TemporalAttentionModel

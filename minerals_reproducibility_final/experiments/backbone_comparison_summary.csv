@@ -1,0 +1,5 @@
+backbone,params_M,batch_size,test_oa,test_macro_f1,rec_igneous,rec_metamorphic,rec_sedimentary,best_epoch,best_val_acc
+resnet50,23.5,16,84.85,0.8566,0.846,0.750,1.000,4,90.62
+efficientnet_b0,4.0,16,75.76,0.7583,0.923,0.500,0.875,7,90.62
+swin_t,27.5,16,90.91,0.9179,1.000,0.750,1.000,4,93.75
+vit_b_16,86.4,8,72.73,0.7365,0.923,0.417,0.875,9,84.38

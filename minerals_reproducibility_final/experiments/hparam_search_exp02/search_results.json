@@ -1,0 +1,110 @@
+[
+  {
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "dropout": 0.3,
+    "batch_size": 16,
+    "val_oa": 87.5,
+    "val_macro_f1": 0.8736772486772487,
+    "is_reference_config": true
+  },
+  {
+    "lr": 5e-05,
+    "weight_decay": 0.0001,
+    "dropout": 0.3,
+    "batch_size": 32,
+    "val_oa": 87.5,
+    "val_macro_f1": 0.8797860962566846,
+    "is_reference_config": false
+  },
+  {
+    "lr": 5e-05,
+    "weight_decay": 1e-05,
+    "dropout": 0.3,
+    "batch_size": 8,
+    "val_oa": 93.75,
+    "val_macro_f1": 0.9444444444444443,
+    "is_reference_config": false
+  },
+  {
+    "lr": 0.0001,
+    "weight_decay": 1e-05,
+    "dropout": 0.5,
+    "batch_size": 32,
+    "val_oa": 87.5,
+    "val_macro_f1": 0.8857142857142857,
+    "is_reference_config": false
+  },
+  {
+    "lr": 0.0001,
+    "weight_decay": 1e-05,
+    "dropout": 0.3,
+    "batch_size": 16,
+    "val_oa": 87.5,
+    "val_macro_f1": 0.8736772486772487,
+    "is_reference_config": false
+  },
+  {
+    "lr": 0.0001,
+    "weight_decay": 1e-05,
+    "dropout": 0.2,
+    "batch_size": 16,
+    "val_oa": 90.625,
+    "val_macro_f1": 0.9071320836026718,
+    "is_reference_config": false
+  },
+  {
+    "lr": 5e-05,
+    "weight_decay": 0.0001,
+    "dropout": 0.5,
+    "batch_size": 32,
+    "val_oa": 87.5,
+    "val_macro_f1": 0.8797860962566846,
+    "is_reference_config": false
+  },
+  {
+    "lr": 5e-05,
+    "weight_decay": 0.0001,
+    "dropout": 0.3,
+    "batch_size": 16,
+    "val_oa": 87.5,
+    "val_macro_f1": 0.888111888111888,
+    "is_reference_config": false
+  },
+  {
+    "lr": 0.0002,
+    "weight_decay": 0.0001,
+    "dropout": 0.5,
+    "batch_size": 16,
+    "val_oa": 87.5,
+    "val_macro_f1": 0.8767482517482517,
+    "is_reference_config": false
+  },
+  {
+    "lr": 5e-05,
+    "weight_decay": 0.0001,
+    "dropout": 0.2,
+    "batch_size": 32,
+    "val_oa": 90.625,
+    "val_macro_f1": 0.9153439153439153,
+    "is_reference_config": false
+  },
+  {
+    "lr": 0.0002,
+    "weight_decay": 1e-05,
+    "dropout": 0.2,
+    "batch_size": 16,
+    "val_oa": 90.625,
+    "val_macro_f1": 0.9027777777777777,
+    "is_reference_config": false
+  },
+  {
+    "lr": 5e-05,
+    "weight_decay": 1e-05,
+    "dropout": 0.3,
+    "batch_size": 16,
+    "val_oa": 87.5,
+    "val_macro_f1": 0.888111888111888,
+    "is_reference_config": false
+  }
+]

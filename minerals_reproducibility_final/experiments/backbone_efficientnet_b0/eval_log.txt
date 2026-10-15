@@ -1,0 +1,22 @@
+backbone: efficientnet_b0  (参数量 4.0M)
+test 集：33 张图像
+checkpoint 训练时最佳 val_acc = 90.62%，Epoch 7
+
+test_acc = 0.7576  (25/33)
+
+=== 混淆矩阵 ===
+     火成岩  变质岩  沉积岩
+火成岩   12    1    0
+变质岩    5    6    1
+沉积岩    0    1    7
+
+=== 分类报告 ===
+              precision    recall  f1-score   support
+
+         火成岩       0.71      0.92      0.80        13
+         变质岩       0.75      0.50      0.60        12
+         沉积岩       0.88      0.88      0.88         8
+
+    accuracy                           0.76        33
+   macro avg       0.78      0.77      0.76        33
+weighted avg       0.76      0.76      0.75        33

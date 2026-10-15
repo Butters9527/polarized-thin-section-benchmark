@@ -1,0 +1,15 @@
+# Local dataset path materialization
+data/processed/
+# Model weights and large outputs
+*.pth
+*.pt
+*.ckpt
+# Raw images
+*.jpg
+*.jpeg
+*.png
+*.tif
+*.tiff
+# Python caches
+__pycache__/
+*.pyc

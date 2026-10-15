@@ -1,0 +1,10 @@
+{
+  "oa": 84.375,
+  "macro_f1": 0.8407634032634034,
+  "rec_igneous": 0.7916666666666666,
+  "rec_metamorphic": 0.9166666666666666,
+  "rec_sedimentary": 0.8125,
+  "n_samples": 64,
+  "best_inner_val_acc": 92.3076923076923,
+  "fold": 4
+}

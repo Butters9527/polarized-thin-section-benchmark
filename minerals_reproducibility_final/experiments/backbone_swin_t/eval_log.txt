@@ -1,0 +1,22 @@
+backbone: swin_t  (参数量 27.5M)
+test 集：33 张图像
+checkpoint 训练时最佳 val_acc = 93.75%，Epoch 4
+
+test_acc = 0.9091  (30/33)
+
+=== 混淆矩阵 ===
+     火成岩  变质岩  沉积岩
+火成岩   13    0    0
+变质岩    3    9    0
+沉积岩    0    0    8
+
+=== 分类报告 ===
+              precision    recall  f1-score   support
+
+         火成岩       0.81      1.00      0.90        13
+         变质岩       1.00      0.75      0.86        12
+         沉积岩       1.00      1.00      1.00         8
+
+    accuracy                           0.91        33
+   macro avg       0.94      0.92      0.92        33
+weighted avg       0.93      0.91      0.91        33

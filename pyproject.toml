@@ -6,7 +6,21 @@ build-backend = "hatchling.build"
 name = "polarized-thin-section-benchmark"
 version = "1.0.0"
 description = "Reproducibility code for polarized-light rock thin-section classification on the NJU dataset"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
+authors = [
+  { name = "Runze Cui", email = "rzcui@pku.edu.cn" },
+  { name = "Zhanzhan Duan", email = "duanzhan@pku.edu.cn" },
+  { name = "Yongqiang Ren" },
+  { name = "Xiangmei Chen" },
+]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
 dependencies = [
   "numpy>=1.24",
   "pandas>=2.0",
@@ -15,6 +29,9 @@ dependencies = [
   "matplotlib>=3.8",
   "tqdm>=4.66"
 ]
+
+[project.urls]
+Repository = "https://github.com/Butters9527/polarized-thin-section-benchmark"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/mineral_id"]

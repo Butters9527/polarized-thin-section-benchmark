@@ -1,5 +1,7 @@
 # Reproducibility Materials for Polarized-Light Rock Thin-Section Classification
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23388854.svg)](https://doi.org/10.5281/zenodo.23388854)
+
 This repository provides the code, data-split assignments, experiment summaries, and figure-generation utilities associated with the manuscript:
 
 **“Evaluating Polarized-Light Input Representations for Rock Thin Section Classification: A Benchmark of Dual-Modal Fusion and Extinction-Sequence Modeling”**

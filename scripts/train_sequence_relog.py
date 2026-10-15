@@ -1,19 +1,24 @@
-r"""三大岩类分类 exp03 消光序列 Temporal Attention 训练脚本 —— _relog 版本。
+r"""三大岩类分类 exp03 消光序列 Temporal Attention 训练脚本 —— _relog 版本（v1.0.1 修正）。
+
+用途：以与原始 exp03 相同的超参数重新训练，并逐 epoch 记录训练过程（用于论文 Figure 7）。
+v1.0.1 修正：显式传入 dropout=0.3（原始 exp03 checkpoint 的实际取值）。v1.0.0 中的版本没有
+传入 dropout，使用了 TemporalAttentionModel 的类默认值 0.5，因此其重跑曲线与原始 exp03 不一致。
+输出目录相应改为 experiments/exp03_sequence_relog_d03。
 
 与原始 train_sequence.py 的唯一区别：
   1. 每个 epoch 结束后把 train_loss/train_acc/val_loss/val_acc 记录进 history 列表，
      训练结束（或 early stop）后写入 exp_dir/train_log.json，用于事后画训练曲线。
-  2. 默认输出目录改为 experiments/exp03_sequence_relog，不会覆盖原始的
+  2. 默认输出目录改为 experiments/exp03_sequence_relog_d03，不会覆盖原始的
      experiments/exp03_sequence/best.pth —— 原始 checkpoint 和论文里已经报告的
      78.79% 等数字完全不受影响，这次重训只是为了拿到一条形状正确的训练曲线。
 
 其余逻辑（数据集、模型构造、优化器、调度器、early stopping 判断）与原脚本逐行一致，
-没有改动任何超参数默认值。
+除显式传入 dropout=0.3 外，没有改动任何超参数。
 
 用法（PowerShell，项目根目录下，先激活 venv）：
     .\.venv\Scripts\python.exe scripts/train_sequence_relog.py
 
-跑完会在 experiments/exp03_sequence_relog/ 下生成：
+跑完会在 experiments/exp03_sequence_relog_d03/ 下生成：
     best.pth        —— 重训得到的权重（仅用于验证复现性，不用于论文数字）
     train_log.json  —— 逐 epoch 的 train/val loss 和 accuracy，用于绘制训练曲线
 """
@@ -140,7 +145,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--patience",     type=int, default=5)
     parser.add_argument("--num-workers",  type=int, default=2)
     # 唯一改动：默认输出目录换成 _relog 后缀，不覆盖原始 exp03_sequence
-    parser.add_argument("--exp-dir",      default="experiments/exp03_sequence_relog")
+    parser.add_argument("--dropout",      type=float, default=0.3)   # 原始 exp03 的实际取值
+    parser.add_argument("--exp-dir",      default="experiments/exp03_sequence_relog_d03")
     return parser.parse_args()
 
 
@@ -159,7 +165,9 @@ def main() -> None:
     )
 
     # 与原脚本完全一致：不传 dropout，使用 TemporalAttentionModel 的类默认值（0.5）
-    model = TemporalAttentionModel().to(device)
+    # 显式传入 dropout，与原始 exp03 一致（不依赖类默认值）
+    model = TemporalAttentionModel(dropout=args.dropout).to(device)
+    print(f"dropout = {args.dropout}")
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.lr, weight_decay=args.weight_decay

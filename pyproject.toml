@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "polarized-thin-section-benchmark"
-version = "1.0.0"
+version = "1.0.1"
 description = "Reproducibility code for polarized-light rock thin-section classification on the NJU dataset"
 readme = "README.md"
 license = "MIT"

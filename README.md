@@ -250,6 +250,8 @@ The figures were generated from the experimental outputs and source images using
 
 Where a figure depends on a trained model, the relevant checkpoint must first be reproduced locally.
 
+The training curves (Figures 4 and 6–9) are drawn by `figure_scripts_NJU/generate_training_curves.py` from the re-logged histories in `figure_scripts_NJU/train_log for Fig4_6_7_8_9/`. Figure 7 uses `exp03_sequence_relog_d03` (dropout 0.3, as in the original exp03 checkpoint); see `PACKAGE_NOTES.md` for the v1.0.1 correction. Running the script without arguments draws all five figures and checks each log against the epoch counts and best validation accuracies stated in the manuscript captions.
+
 ---
 
 ## 9. Reproducibility Notes
@@ -283,3 +285,9 @@ These materials accompany:
 > **Evaluating Polarized-Light Input Representations for Rock Thin Section Classification: A Benchmark of Dual-Modal Fusion and Extinction-Sequence Modeling**
 
 The repository is intended to support inspection and reproduction of the experimental procedures and results reported in that study.
+
+---
+
+## 12. License
+
+The code in this repository is released under the MIT License; see `LICENSE`.

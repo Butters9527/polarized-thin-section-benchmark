@@ -1,47 +1,88 @@
-# Reproducibility Materials: Polarized-Light Rock Thin-Section Classification
+# Reproducibility Materials for Polarized-Light Rock Thin-Section Classification
 
-This repository contains the code, split assignments, lightweight experiment outputs, and figure-generation utilities supporting the manuscript **“Evaluating Polarized-Light Input Representations for Rock Thin Section Classification: A Benchmark of Dual-Modal Fusion and Extinction-Sequence Modeling”**, submitted to *Minerals*.
+This repository provides the code, data-split assignments, experiment summaries, and figure-generation utilities associated with the manuscript:
 
-## Scope
+**“Evaluating Polarized-Light Input Representations for Rock Thin Section Classification: A Benchmark of Dual-Modal Fusion and Extinction-Sequence Modeling”**
 
-This package is intentionally limited to the NJU rock thin-section experiments reported in this manuscript. It does **not** contain materials from other datasets, manuscripts, patent experiments, or software prototypes.
+The repository covers the NJU rock thin-section experiments reported in the manuscript, including the single-frame PPL baseline, PPL+XPL early fusion, multi-frame extinction-sequence models, cross-validation analyses, hyperparameter sensitivity analysis, backbone comparison, and interpretability experiments.
 
-Raw thin-section images and trained model weights are not redistributed. The source images are available from the public **NJU Rock Thin Section Microscopic Image Dataset** at Science Data Bank (DOI: `10.11922/sciencedb.j00001.00097`).
+Raw thin-section images and trained model weights are not redistributed. The source images are available from the public **NJU Rock Thin Section Microscopic Image Dataset** hosted by Science Data Bank:
 
-## Repository Contents
+**DOI:** 10.11922/sciencedb.j00001.00097
 
-- `data/metadata/`: frame- and slide-level metadata with machine-local filesystem paths removed.
-- `data/splits/`: fixed train/validation/test assignments, non-nested 5-fold assignments, and nested-CV assignments used for the manuscript analyses.
-- `src/mineral_id/`: dataset, model, and training modules for the PPL baseline, PPL+XPL@0° early fusion, and 8-frame sequence models.
-- `scripts/`: evaluation, cross-validation, hyperparameter-search, backbone-comparison, attribution, attention, and dataset-path preparation scripts.
-- `experiments/`: lightweight metrics and logs supporting the reported tables and analyses. Model checkpoints are excluded.
-- `figure_scripts_NJU/`: scripts and small numeric inputs used to reproduce manuscript figures.
+---
 
-## 1. Prepare the Public NJU Dataset
+## Repository Structure
 
-After downloading and extracting the NJU dataset, create machine-local CSV files containing the real image paths:
+```text
+data/
+├── metadata/                 Frame- and slide-level metadata
+└── splits/                   Fixed and cross-validation assignments
+
+src/mineral_id/
+├── data/                     Dataset loading and preprocessing
+├── models/                   Classification and sequence models
+└── training/                 Main training entry points
+
+scripts/
+├── Evaluation utilities
+├── Cross-validation scripts
+├── Hyperparameter search
+├── Backbone comparison
+├── Grad-CAM visualization
+├── Attention-weight analysis
+└── Dataset-path preparation
+
+experiments/
+└── Metrics, logs, and lightweight numerical outputs used in the manuscript
+
+figure_scripts_NJU/
+└── Scripts and numerical inputs used to generate manuscript figures
+```
+
+Machine-specific filesystem paths have been removed from the released metadata and split files.
+
+---
+
+## 1. Prepare the NJU Dataset
+
+Download and extract the public NJU dataset, then run:
 
 ```bash
 python scripts/prepare_dataset_paths.py --dataset-root /path/to/NJU_dataset
 ```
 
-The generated files are written under `data/processed/`. They are intentionally excluded from version control because they contain machine-specific absolute paths.
+The script reconstructs local image paths and writes the resulting CSV files under:
 
-The manuscript uses a slide-level stratified fixed split after exclusion of three incomplete sequences. The public assignments are stored in:
+```text
+data/processed/
+```
 
-- `data/splits/fixed_slide_assignments.csv`
-- `data/splits/fixed_frame_assignments.csv`
+These files are not included in the repository because they contain machine-specific absolute paths.
 
-The non-nested and nested 5-fold assignments are stored in:
+The manuscript uses a slide-level stratified fixed split after excluding three incomplete image sequences. The released assignments are:
 
-- `data/splits/kfold_assignments.csv`
-- `data/splits/nested_cv_assignments.csv`
+```text
+data/splits/fixed_slide_assignments.csv
+data/splits/fixed_frame_assignments.csv
+```
 
-## 2. Verified Software Environment
+Cross-validation assignments are provided in:
 
-The following environment was directly verified in the project virtual environment on **2026-09-29** and is the recommended reference stack for running the released code:
+```text
+data/splits/kfold_assignments.csv
+data/splits/nested_cv_assignments.csv
+```
 
-| Component | Verified version |
+The split files allow the sample membership of each training, validation, test, and cross-validation partition to be inspected independently of the local image paths.
+
+---
+
+## 2. Software Environment
+
+The released code was verified in the following project environment on 29 September 2026.
+
+| Component | Version |
 |---|---|
 | Python | 3.12.9 |
 | PyTorch | 2.5.1+cu121 |
@@ -52,23 +93,25 @@ The following environment was directly verified in the project virtual environme
 | Pillow | 12.2.0 |
 | scikit-learn | 1.8.0 |
 | matplotlib | 3.10.9 |
-| GPU | NVIDIA GeForce RTX 4060 Laptop GPU (8 GB VRAM) |
+| GPU | NVIDIA GeForce RTX 4060 Laptop GPU, 8 GB VRAM |
 
-This table is a verified snapshot of the current project environment. It should not be interpreted as proof that every third-party library had exactly the same patch version on the date of every original training run unless an archived environment lock file is available.
+These versions represent the environment used to verify the released code. Minor third-party library versions may differ from those used in some of the original training runs because a historical environment lock file was not retained.
 
-Install PyTorch/torchvision for an appropriate CUDA platform, then install the package and remaining dependencies:
+Install PyTorch and torchvision for the appropriate CUDA platform first, and then install the project and remaining dependencies:
 
 ```bash
 pip install -e .
 ```
 
-The experiments reported in the manuscript were run on an NVIDIA CUDA-enabled GPU. CPU-only execution of the complete training workflow has not been systematically validated.
+The experiments reported in the manuscript were conducted on an NVIDIA CUDA-enabled GPU. The complete training workflow has not been systematically tested in a CPU-only environment.
 
-## 3. Main Training Entry Points
+---
 
-Run the following commands from the repository root after preparing `data/processed/`.
+## 3. Main Experiments
 
-### exp01 — single-frame PPL baseline
+Run all commands from the repository root after preparing `data/processed/`.
+
+### exp01 — Single-frame PPL baseline
 
 ```bash
 python -m mineral_id.training.train --batch-size 16 --seed 42
@@ -80,53 +123,74 @@ python -m mineral_id.training.train --batch-size 16 --seed 42
 python -m mineral_id.training.train_dual --batch-size 16 --seed 42
 ```
 
-### exp03 — 8-frame sequence model
+### exp03 — Eight-frame sequence model
+
+The sequence consists of one PPL frame and seven XPL frames acquired from 0° to 90° at 15° intervals.
 
 ```bash
 python -m mineral_id.training.train_sequence --batch-size 8
 ```
 
-### exp03b — regularized/frozen sequence model
+### exp03b — Regularized sequence model
 
 ```bash
 python -m mineral_id.training.train_sequence_b --batch-size 8 --dropout 0.5
 ```
 
-### exp04 — sequence model with rotational positional encoding
+### exp04 — Sequence model with rotational positional encoding
 
 ```bash
 python -m mineral_id.training.train_sequence_rpe
 ```
 
-The archived lightweight outputs under `experiments/` correspond to the manuscript analyses. Model checkpoints are not included in this public package.
+The `experiments/` directory contains the lightweight metrics and logs used in the manuscript. Model checkpoints are not included.
 
-## 4. Cross-Validation and Sensitivity Analyses
+---
 
-### Non-nested 5-fold cross-validation
+## 4. Cross-Validation
+
+### Non-nested five-fold cross-validation
 
 ```bash
 python scripts/kfold_cv.py --mode exp01
 python scripts/kfold_cv.py --mode exp02
 ```
 
-### Nested 5-fold cross-validation
+### Nested five-fold cross-validation
 
 ```bash
 python scripts/nested_cv.py --mode exp01
 python scripts/nested_cv.py --mode exp02
 ```
 
-### Hyperparameter sensitivity analysis
+The nested analysis separates the inner validation split used for model selection and early stopping from the outer evaluation fold.
+
+Fold membership is also provided explicitly in:
+
+```text
+data/splits/kfold_assignments.csv
+data/splits/nested_cv_assignments.csv
+```
+
+---
+
+## 5. Hyperparameter Sensitivity Analysis
+
+Run:
 
 ```bash
 python scripts/hyperparam_search.py
 ```
 
-The released assignment tables make the fold membership inspectable independently of local filesystem paths.
+The corresponding lightweight outputs are included in the repository and support the hyperparameter sensitivity analysis reported in the manuscript.
 
-## 5. Backbone Comparison
+---
 
-The backbone-comparison script uses the same dual-modal PPL+XPL@0° early-fusion setup while replacing the ImageNet-pretrained backbone. The actual commands used were checked against the local PowerShell command history. The resulting batch sizes were:
+## 6. Backbone Comparison
+
+The backbone comparison uses the same dual-modal PPL+XPL@0° early-fusion framework while replacing the ImageNet-pretrained feature extractor.
+
+The batch sizes used in the reported experiments were:
 
 | Backbone | Batch size |
 |---|---:|
@@ -135,7 +199,7 @@ The backbone-comparison script uses the same dual-modal PPL+XPL@0° early-fusion
 | ViT-B/16 | 8 |
 | Swin-T | 16 |
 
-Use explicit batch-size arguments to avoid relying on defaults:
+Run the experiments with explicit batch-size arguments:
 
 ```bash
 python scripts/backbone_comparison.py --backbone resnet50 --batch-size 16
@@ -144,13 +208,19 @@ python scripts/backbone_comparison.py --backbone vit_b_16 --batch-size 8
 python scripts/backbone_comparison.py --backbone swin_t --batch-size 16
 ```
 
-ViT-B/16 used a smaller batch size because of its higher GPU-memory requirement on the 8 GB GPU. Therefore, the backbone comparison should be described as using matched data, preprocessing, augmentation, optimizer/schedule, weight decay, and early-stopping settings **except for batch size**.
+The same data split, preprocessing, augmentation procedure, optimizer, learning-rate schedule, weight decay, and early-stopping protocol were used across the four backbones. ViT-B/16 used a batch size of 8 because of its higher GPU-memory requirement on the 8 GB GPU; the other three backbones used a batch size of 16.
 
-The corresponding lightweight summary is provided in `experiments/backbone_comparison_summary.csv`.
+The resulting summary is provided in:
 
-## 6. Evaluation and Visualization Utilities
+```text
+experiments/backbone_comparison_summary.csv
+```
 
-The package also includes utilities for held-out evaluation, Grad-CAM visualization, attention-weight analysis, and manuscript figure generation. These scripts require the relevant locally trained checkpoint where applicable.
+---
+
+## 7. Evaluation and Interpretability
+
+The repository includes utilities for held-out evaluation, Grad-CAM visualization, and frame-level attention analysis.
 
 Examples:
 
@@ -160,17 +230,54 @@ python scripts/gradcam_viz.py --help
 python scripts/attention_viz.py --help
 ```
 
-Figure-generation scripts are located in `figure_scripts_NJU/`.
+Checkpoint-dependent analyses require a locally trained model checkpoint.
 
-## 7. Reproducibility Notes
+Grad-CAM and attention-weight outputs used in the manuscript are represented by the lightweight numerical or image-derived materials included under `experiments/` and the corresponding figure-generation scripts.
 
-- The package contains the public split/fold assignments and lightweight numerical outputs used to support the manuscript tables and plots.
-- Raw NJU images must be downloaded separately from the public dataset source.
-- Model checkpoints are excluded because of file size; checkpoint-dependent analyses require locally trained weights.
-- Exact GPU-level bitwise reproducibility is not guaranteed across different CUDA kernels, drivers, GPUs, or library builds.
-- Re-logged training curves in the package are for documenting training dynamics and should not be interpreted as replacing the retained checkpoint metrics used in the manuscript.
-- Machine-local absolute paths, personal contact information, unrelated project materials, and internal workflow files have been removed from this public package.
+---
 
-## 8. Privacy and Package Boundary
+## 8. Figure Generation
 
-This release was curated specifically for the *Minerals* manuscript. It excludes materials from separate datasets/manuscripts, patent-related experiments, GUI/Web prototypes, internal review/audit files, local absolute paths, personal contact details, and unrelated development artifacts.
+Scripts used to produce the manuscript figures are located in:
+
+```text
+figure_scripts_NJU/
+```
+
+The figures were generated from the experimental outputs and source images using Python-based plotting and image-processing scripts.
+
+Where a figure depends on a trained model, the relevant checkpoint must first be reproduced locally.
+
+---
+
+## 9. Reproducibility Notes
+
+- The released split files preserve the sample assignments used in the manuscript.
+- Raw NJU images must be downloaded separately from Science Data Bank.
+- Model checkpoints are not included because of their size.
+- Numerical metrics and lightweight logs supporting the manuscript tables and analyses are included where practical.
+- Re-logged training curves are provided to document training dynamics; manuscript performance values are based on the retained checkpoints from the corresponding experiments.
+- Exact bitwise reproducibility is not expected across different GPUs, CUDA kernels, drivers, or library builds.
+- Small numerical differences between reruns may therefore occur even when the same random seed and data partition are used.
+
+---
+
+## 10. Dataset Citation
+
+If you use the NJU thin-section images, please cite the original dataset using the citation information provided by Science Data Bank.
+
+Dataset DOI:
+
+```text
+10.11922/sciencedb.j00001.00097
+```
+
+---
+
+## 11. Manuscript
+
+These materials accompany:
+
+> **Evaluating Polarized-Light Input Representations for Rock Thin Section Classification: A Benchmark of Dual-Modal Fusion and Extinction-Sequence Modeling**
+
+The repository is intended to support inspection and reproduction of the experimental procedures and results reported in that study.

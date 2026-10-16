@@ -130,7 +130,7 @@ python -m mineral_id.training.train_dual --batch-size 16 --seed 42
 The sequence consists of one PPL frame and seven XPL frames acquired from 0° to 90° at 15° intervals.
 
 ```bash
-python -m mineral_id.training.train_sequence --batch-size 8
+python -m mineral_id.training.train_sequence --batch-size 8 --dropout 0.3
 ```
 
 ### exp03b — Regularized sequence model

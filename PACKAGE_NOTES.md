@@ -23,3 +23,11 @@ The software versions listed in `README.md` are a directly verified snapshot of 
   training log against the epoch counts and best validation accuracies stated in the manuscript figure captions.
 - Added the `LICENSE` file (MIT) referenced by `pyproject.toml`, which was missing from v1.0.0.
 - `MANIFEST.csv` regenerated.
+
+## Changes in v1.0.2 (2026-10-15)
+
+- `src/mineral_id/training/train_sequence.py` (exp03) now passes `--dropout` explicitly, with a default of 0.3,
+  the value used for the exp03 checkpoint reported in the manuscript. Previously it relied on the
+  `TemporalAttentionModel` class default, which is 0.5 (the exp03b/exp04 value), so re-running exp03 from this
+  repository would have used the wrong dropout. The README command for exp03 now states `--dropout 0.3`.
+- `MANIFEST.csv` regenerated.

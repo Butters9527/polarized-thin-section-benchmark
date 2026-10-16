@@ -121,6 +121,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--patience",     type=int, default=5)
     parser.add_argument("--num-workers",  type=int, default=2)
+    parser.add_argument("--dropout",      type=float, default=0.3)   # exp03 实际取值（类默认值为 0.5）
     parser.add_argument("--exp-dir",      default="experiments/exp03_sequence")
     return parser.parse_args()
 
@@ -139,7 +140,9 @@ def main() -> None:
         num_workers=args.num_workers,
     )
 
-    model = TemporalAttentionModel().to(device)
+    # 显式传入 dropout：exp03 使用 0.3，不依赖 TemporalAttentionModel 的类默认值（0.5）
+    model = TemporalAttentionModel(dropout=args.dropout).to(device)
+    print(f"dropout = {args.dropout}")
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.lr, weight_decay=args.weight_decay
